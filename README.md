@@ -2,6 +2,9 @@
 
 A turn-based chess-like game where two players compete on a 5x5 grid. The game follows a server-client architecture with real-time communication through WebSockets and a web-based user interface.
 
+![Grey minimalist business project presentation ](https://github.com/user-attachments/assets/c763d267-da69-4859-b5e7-bae8a6b77c8e)
+
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -14,6 +17,7 @@ These instructions will get you a copy of the project up and running on your loc
 - HTML/CSS/JavaScript - Front-end technologies
 
 ### Prerequisites
+
 
 - Node.js
 - npm (Node Package Manager)
