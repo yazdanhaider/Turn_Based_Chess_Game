@@ -1,0 +1,102 @@
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #111;
+  color: white;
+  text-align: center;
+}
+
+#board {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-template-rows: repeat(5, 60px);
+  gap: 10px;
+  margin-bottom: 20px;
+  background-color: #000000;
+  padding: 1px;
+}
+
+.cell {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #444;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #222;
+}
+
+.A {
+  color: #4a90e2;
+}
+
+.B {
+  color: #e24a4a;
+}
+
+.selected {
+  background-color: #4a90e2;
+  color: white !important;
+}
+
+#controls {
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 15px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #1a3c6e;
+  color: white;
+  border: none;
+  font-size: 14px;
+}
+
+/* Flex container for history and captured sections */
+#info-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+#history,
+#captured {
+  text-align: left;
+  max-width: 300px;
+}
+
+#history h2,
+#captured h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+#history-list,
+#captured-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #333;
+  background-color: #111;
+}
+
+#history-list li,
+#captured-list li {
+  padding: 5px 10px;
+  border-bottom: 1px solid #333;
+}
+
+#history-list li:last-child,
+#captured-list li:last-child {
+  border-bottom: none;
+}
