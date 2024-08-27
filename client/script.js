@@ -1,4 +1,6 @@
-const webSocket = new WebSocket("ws://localhost:8080");
+const webSocket = new WebSocket(
+  "https://yazdan-haider-21bce10015.onrender.com"
+);
 let gameDetails = {};
 let chosenCharacter = null;
 let chosenPosition = null;
