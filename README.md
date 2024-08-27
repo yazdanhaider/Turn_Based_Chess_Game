@@ -69,3 +69,7 @@ Out of bounds or targeting friendly characters will result in retrying the move.
 **Winning Condition🏆:**
 
 **The game ends when one player eliminates all opposing characters.🏆🎊**
+
+## Authors
+
+- Yazdan Haider 🇮🇳
