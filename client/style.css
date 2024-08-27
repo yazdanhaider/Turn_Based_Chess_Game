@@ -59,7 +59,6 @@ body {
   font-size: 14px;
 }
 
-/* Flex container for history and captured sections */
 #info-container {
   display: flex;
   justify-content: space-between;
@@ -99,4 +98,18 @@ body {
 #history-list li:last-child,
 #captured-list li:last-child {
   border-bottom: none;
+}
+
+#reset-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #e24a4a;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+#reset-button:hover {
+  background-color: #c13a3a;
 }

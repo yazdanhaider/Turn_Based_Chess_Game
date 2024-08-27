@@ -22,12 +22,29 @@ let gameState = {
   capturedHistory: [],
 };
 
+function initializeGameState() {
+  gameState = {
+    grid: Array(5)
+      .fill(null)
+      .map(() => Array(5).fill(null)),
+    players: {
+      A: { characters: ["P1", "H1", "P2", "H2", "P3"], turn: true, team: "A" },
+      B: { characters: ["P1", "H1", "P2", "H2", "P3"], turn: false, team: "B" },
+    },
+    currentPlayer: "A",
+    winner: null,
+    moveHistory: [],
+    capturedHistory: [],
+  };
+  initializeCharacters();
+}
+
 function initializeCharacters() {
   gameState.grid[0] = ["A-P1", "A-H1", "A-P2", "A-H2", "A-P3"];
   gameState.grid[4] = ["B-P1", "B-H1", "B-P2", "B-H2", "B-P3"];
 }
 
-initializeCharacters();
+initializeGameState();
 
 function validateMove(player, character, move) {
   const position = findCharacterPosition(player, character);
@@ -137,10 +154,10 @@ function findCharacterPosition(player, character) {
   return null;
 }
 
-function broadcastGameState() {
+function broadcastGameState(type) {
   wss.clients.forEach((client) => {
     if (client.readyState === WebSocket.OPEN) {
-      client.send(JSON.stringify({ type: "update", data: gameState }));
+      client.send(JSON.stringify({ type, data: gameState }));
     }
   });
 }
@@ -150,7 +167,15 @@ wss.on("connection", (ws) => {
   ws.send(JSON.stringify({ type: "init", data: gameState }));
 
   ws.on("message", (message) => {
-    const { player, character, move } = JSON.parse(message);
+    const parsedMessage = JSON.parse(message);
+
+    if (parsedMessage.type === "reset") {
+      initializeGameState();
+      broadcastGameState("reset");
+      return;
+    }
+
+    const { player, character, move } = parsedMessage;
     if (
       gameState.currentPlayer !== player ||
       !gameState.players[player].characters.includes(character)
@@ -192,8 +217,7 @@ wss.on("connection", (ws) => {
     gameState.moveHistory.push(`${player}-${character}:${move}`);
 
     gameState.currentPlayer = player === "A" ? "B" : "A";
-
-    broadcastGameState();
+    broadcastGameState("update");
   });
 
   ws.on("close", () => {

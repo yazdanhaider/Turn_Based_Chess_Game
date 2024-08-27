@@ -10,15 +10,23 @@ const controlPanel = document.getElementById("controls");
 const gameStatus = document.getElementById("status");
 const moveHistoryList = document.getElementById("history-list");
 const capturedItemsList = document.getElementById("captured-list");
+const resetButton = document.getElementById("reset-button");
 
 webSocket.addEventListener("message", (event) => {
   const dataMessage = JSON.parse(event.data);
-  if (dataMessage.type === "init" || dataMessage.type === "update") {
+  if (
+    dataMessage.type === "init" ||
+    dataMessage.type === "update" ||
+    dataMessage.type === "reset"
+  ) {
     gameDetails = dataMessage.data;
     displayBoard();
     updateGameStatus();
     showMoveHistory();
     showCapturedItems();
+    chosenCharacter = null;
+    chosenPosition = null;
+    updateControlPanel();
   } else if (dataMessage.type === "invalid") {
     alert(dataMessage.message);
   }
@@ -129,3 +137,9 @@ function updateGameStatus() {
     gameStatus.textContent = `Current Player: ${gameDetails.currentPlayer}`;
   }
 }
+
+function resetGame() {
+  webSocket.send(JSON.stringify({ type: "reset" }));
+}
+
+resetButton.addEventListener("click", resetGame);
